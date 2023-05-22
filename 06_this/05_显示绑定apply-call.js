@@ -12,7 +12,7 @@ function foo(params) {
 /**
  * foo直接调用和call/apply调用的不同在于this绑定的不同
  * foo直接调用指向的是全局对象window
- * call和apply区别：
+ * call和apply区别：调用带参数的传参方式不一样
  */
 var obj = {
     name: 'kobi',

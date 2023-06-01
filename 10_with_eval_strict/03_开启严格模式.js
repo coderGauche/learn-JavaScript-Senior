@@ -2,7 +2,7 @@
  * @Author: Gauche楽
  * @Date: 2023-05-24 16:22:07
  * @LastEditors: Gauche楽
- * @LastEditTime: 2023-05-24 16:27:53
+ * @LastEditTime: 2023-06-01 17:40:51
  * @FilePath: /learn-JavaScript-Senior/10_with_eval_strict/03_开启严格模式.js
  */
 /**

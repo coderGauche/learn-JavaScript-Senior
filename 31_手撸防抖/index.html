@@ -1,0 +1,57 @@
+<!--
+ * @Author: Gauche楽
+ * @Date: 2023-07-11 17:27:44
+ * @LastEditors: Gauche楽
+ * @LastEditTime: 2023-07-11 18:50:10
+ * @FilePath: /learn-JavaScript-Senior/31_手撸防抖/index.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/underscore@1.13.1/underscore-umd-min.js"></script>
+
+</head>
+
+<body>
+    <div style="padding: 10px;">
+        <input class="ipt"></input><button class="cancel">取消</button>
+    </div>
+    <!-- <script src="./01_第三方库实现.js"></script> -->
+    <!-- <script src="./02_debounce_v1.js"></script> -->
+    <!-- <script src="./03_debounce_this_参数_v2.js"></script> -->
+    <!-- <script src="./04_debounde_立即触发.js"></script> -->
+    <!-- <script src="./05_debounde_取消功能.js"></script> -->
+    <!-- <script src="./06_debounde_回调.js"></script> -->
+    <script src="./07_debounde_promise实现返回值.js"></script>
+    <script>
+        const ipt = document.querySelector('input');
+        let counters = 0
+        function inputChange(event) {
+            console.log(`触发次数${counters++}`, event, this);
+            return 'aaaaa'
+        }
+        // ipt.oninput = _.debounce(inputChange, 1000, true)
+        const debounceOnchange = debounceChange(inputChange, 1000, false, (res) => {
+            console.log('拿到res', res);
+        })
+        // const debounceOnchange = debounceChange(inputChange, 1000, false)
+        const tempCallback = () => {
+            debounceOnchange().then(res => {
+                console.log('promise拿到:' + res);
+            })
+        }
+        ipt.oninput = tempCallback
+
+        //取消
+        const cancelBtn = document.querySelector('.cancel')
+        cancelBtn.onclick = function () {
+            debounceOnchange.cancel()
+        }
+    </script>
+</body>
+
+</html>

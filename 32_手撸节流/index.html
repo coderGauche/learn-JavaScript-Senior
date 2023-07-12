@@ -1,0 +1,48 @@
+<!--
+ * @Author: Gauche楽
+ * @Date: 2023-07-11 18:52:42
+ * @LastEditors: Gauche楽
+ * @LastEditTime: 2023-07-12 19:37:26
+ * @FilePath: /learn-JavaScript-Senior/32_手撸节流/index.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/underscore@1.13.1/underscore-umd-min.js"></script>
+</head>
+
+<body>
+    <div style="padding: 10px;">
+        <input class="ipt"></input><button class="cancel">取消</button>
+    </div>
+    <!-- <script src="./02_throttle_v1.js"></script> -->
+    <!-- <script src="./03_throttle_leading.js"></script> -->
+    <!-- <script src="./04_throttle_trailing.js"></script> -->
+    <!-- <script src="./05_throttle_取消功能.js"></script> -->
+    <!-- <script src="./07_throttle_回调返回值.js"></script> -->
+    <script src="./08_throttle_promise返回值.js"></script>
+    <script>
+        const ipt = document.querySelector('input');
+        const cancel = document.querySelector('.cancel')
+        let counters = 0
+        function inputChange(event) {
+            console.log(`触发次数${counters++}`, event, this);
+            return 'aaaa'
+        }
+        const throttleOnchange = throttle(inputChange, 1000, { trailing: false, leading: true }, (res) => { console.log(res); })
+        const tempCallback = () => {
+            throttleOnchange().then(res => {
+                console.log('promise:', res);
+            })
+        }
+        // ipt.oninput = _.throttle(inputChange, 3000)
+        ipt.oninput = tempCallback
+        cancel.onclick = throttleOnchange.cancel()
+    </script>
+</body>
+
+</html>
